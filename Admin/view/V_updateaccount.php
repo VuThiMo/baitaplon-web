@@ -13,7 +13,7 @@
   <body>
  
   <?php
-   include 'model/database.php';
+include 'model/database.php';
 
 
 $emailphone = $_GET['email_phone'];

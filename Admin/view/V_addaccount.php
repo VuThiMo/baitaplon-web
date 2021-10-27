@@ -37,12 +37,7 @@
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
                             <form class="user">
-                                <div class="form-group row">
-
-                                    <input type="text" class="form-control form-control-user" id="exampleUserName"
-                                        placeholder="User Name">
-
-                                </div>
+                                
                         <div class="form-group">
                             <input type="email" class="form-control form-control-user" id="exampleInputEmail"
                                 placeholder="Email Address">
