@@ -27,11 +27,32 @@ switch ($controller) {
 		case 'add_account':
 		require_once('./controller/C_add_account.php');
 		break;
+	    case 'addaccount':
+		require_once('./controller/C_addaccount.php');
+		break;
+		 case 'xuli_admin':
+		require_once('./controller/C_xuli_admin.php');
+		break;
+		case 'xuli':
+		require_once('./controller/C_xuli.php');
+		break;
+	    case 'template':
+		require_once('./controller/C_template.php');
+		break;
+		case 'xuli_template':
+		require_once('./controller/C_xuli_template.php');
+		break;
+		case 'addtemplate':
+		require_once('./controller/C_addtemplate.php');
+		break;
 		
+		case 'add_template':
+		require_once('./controller/C_add_template.php');
+		break;
 	
 	
 	default:
-		require_once('./controller/C_login.php');
+		require_once('./controller/C_trang_chu.php');
 		break;
 }
 

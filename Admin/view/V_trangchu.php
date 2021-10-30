@@ -34,7 +34,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="?controller=trang_chu">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -46,18 +46,21 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="?controller=trang_chu">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>user management </span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=template">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>manage templates </span></a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+           
 
         </ul>
         <!-- End of Sidebar -->
@@ -78,19 +81,21 @@
                         </button>
                     </form>
 
-                    <!-- Topbar Search -->
-                    <form
+                    <!--* phần Search -->
+                    <form method="get" action="index.php"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                             <input type="hidden" name="controller" value="trang_chu">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search email or phone ...."
+                                aria-label="Search" aria-describedby="basic-addon2"  value="<?php echo(isset($_GET['keyword'])) ? $_GET['keyword']:''?>" name="keyword">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <!-- end tìm kiếm -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -159,6 +164,8 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tables User</h1>
 
+                    
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -170,33 +177,39 @@
                                     <!-- Hiển thị BẢNG DỮ LIỆU DANH BẠ CÁ NHÂN -->
                                     <!-- Kết nối tới Server, truy vấn dữ liệu (SELECT) từ Bảng db_employees -->
                                     <!-- Quy trình 4 bước -->
-                                    <a href="?controller=add_account" class="btn btn-success"><i class="fas fa-user-plus"></i> Create an Account</a>
+                                    <a href="?controller=addaccount" class="btn btn-success"><i class="fas fa-user-plus"></i> Create an Account</a>
                                     <table class="table">
                                         <thead>
                                             <tr>
+                                                 <th scope="col">ID</th>
                                                
                                                 <th scope="col">Email or Mobile</th>
                                                 <th scope="col">Mật khẩu</th>
                                                
                                             </tr>
                                         </thead>
-                                        <?php foreach ($account as $key => $value) {?>
+                                        
                                         <tbody>
                                              <tr>
-  
+                                    
+                                    <?php foreach ($account as $key => $value) {?>
+                                    <td><?php echo $value ['id'] ?></td>
       
-      <td><?php echo $value ['email_phone'] ?></td>
-      <td><?php echo $value ['password'] ?></td>
+                                   <td><?php echo $value ['email_phone'] ?></td>
+                                      <td><?php echo $value ['password'] ?></td>
      
       <!--- sửa xóa-->
       <td>
-        <a href=""><button class="btn btn-success"><i class="fas fa-user-edit"></i></button></a>
+        <a href="?controller=xuli_admin&method=edit&id=<?php echo $value['id']?>"><button class="btn btn-success"><i class="fas fa-user-edit"></i></button></a>
+              <a href="?controller=xuli_admin&method=dele&id=<?php echo $value['id']?>"><button class="btn btn-danger"><i class="fas fa-user-times"></i></button></a>
+        <!-- 
       <button class="btn btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-user-times"></i></button>
       </i></button></td>
-<!-- bootstrap --->                                  
+
+                             
 <section class="row">
     <section class="col-md-3" >
-      
+     
       <section class="modal fade" id="modalDelete">
         <section class="modal-dialog"  >
           <section class="modal-content" >
@@ -210,13 +223,16 @@
             <section class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
               
-              <a href=""><button type="button" class="btn btn-success">OK</button></a>
+            <a href="?controller=xuli_admin&method=dele&id=<//?php echo $value['id']?>"><button class="btn btn-success">OK</button></a>
             </section>
           </section>
         </section>
       </section>
+    
     </section>
   </section>
+-->
+ 
   <!-- end xóa --->
 
 
@@ -225,6 +241,7 @@
 
   </tbody>
    <?php  } ?>
+
   </table>
 </main>
 

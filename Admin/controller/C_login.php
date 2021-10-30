@@ -30,8 +30,13 @@ if(isset($_POST['btn_login'])){
 
 	if(!$error){
 		$_SESSION['ss_admin_nhanvien']=$user[0]['id'];
-		header('location:?controller=trang_chu');
+		if ($user[0]['role'] == 'admin') {
+			header('location:?controller=trang_chu');
+		}
 		
+		if ($user[0]['role'] == 'user') {
+			header('location:./view/V_website.php');
+		}
 		
 	}
 	

@@ -75,6 +75,102 @@ class database
   	$query = mysqli_query($this->conn,$sql);
   	return $query;
   }
+
+  // hàm lấy dữ liệu theo đk nào đó(sử dụng câu lệnh like)
+        public function get_like($table,$column,$value){
+        	// tạo truy vấn sql
+        	$sql="SELECT *FROM $table";
+        	// nối chuỗi
+        	$sql.=" WHERE $column LIKE'%$value%'";
+        	// chạy câu lệnh
+        	$query = mysqli_query($this->conn , $sql);
+        	$result =array();
+        	if($query){
+        		// lấy giá trọ của 1 dòng
+        		while ($row =mysqli_fetch_assoc($query)) {
+        			$result[]=$row;
+        			
+        		}
+        	}
+        	// bước 5: hàm trả về giá trị
+        	return $result;
+        	
+}
+// hàm update dữ liệu vào 1 bảng theo đk
+ public function update($table,$data=array(),$condition=array())
+{
+	// bước 1: xử lý chuỗi giá trị
+	$str='';
+	foreach ($data as $key => $value) {
+		$str.="$key ='$value',";
+		}
+		// bước 2 xóa dấu phẩy ở cuối
+		$str= trim($str,",");
+
+		// bước 3 viết câu lệnh sql
+		$sql="UPDATE $table SET $str WHERE ";
+		foreach ($condition as $key => $value) {
+			$sql.="$key ='$value' AND";
+		}
+		$sql= trim($sql,'AND');
+		// bước 4 chạy câu lênh
+		$query=mysqli_query($this->conn,$sql);
+		// bước 5 : trả về giá trị boolean true/false
+		return $query;
+	
+
+}
+// hàm xóa dữ liệu
+public function delete($table,$condition=array()){
+	// bước 1 viết câu lệnh sql
+	$sql=" DELETE FROM $table WHERE ";
+	// bước 2 nối chuỗi theo đk
+	foreach ($condition as $key => $value) {
+		$sql.="$key = '$value' AND";
+	}
+	// cắt từ AND
+$sql= trim($sql,'AND');
+// bước 3 chạy lệnh
+$query=mysqli_query($this->conn,$sql);
+// bước 4 trả về giá trị boolean
+return $query;
+}
+// hàm lấy dữ liệu kết hợp nhiều bảng
+public function get_limit($table,$condition=array(),$limit){
+	
+	$sql="SELECT *FROM $table ";
+
+
+	if(!empty($condition)){
+        		// nối chuối,cách where
+        		$sql.=" WHERE";
+        		//lưu mảng phải lặp
+        		foreach ($condition as $key => $value) {
+        			$sql.= " $key =  '$value'
+        			 AND ";
+        			
+        		}
+
+        		$sql.=" LIMIT $limit";
+        		$query=mysqli_query($this->conn,$sql);
+        		$result =array();
+
+
+        	if($query){
+        		// lấy giá trọ của 1 dòng
+        		while ($row =mysqli_fetch_assoc($query)) {
+        			$result[]=$row;
+        			
+        		}
+        	}
+        	return $result;
+        	
+
+}
+
+  }
+
+
 }
 
 
